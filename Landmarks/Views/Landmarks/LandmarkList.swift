@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct LandmarkList: View {
+    @EnvironmentObject var modelData: ModelData
     @State private var showFavoritesOnly = false
     
     var filteredLandmarks: [Landmark] {
-        landmarks.filter{ landmark in
+        modelData.landmarks.filter{ landmark in
             // does not show favorites. logic: true if showFavoritesOnly variable is false
             // shows favorites. logic: true if showFavoritesOnly variable is true AND landmark is favored
             (!showFavoritesOnly || landmark.isFavorite)
@@ -48,6 +49,7 @@ struct LandmarkList_Previews: PreviewProvider {
             LandmarkList()
                 .previewDevice(PreviewDevice(rawValue: deviceName))
                 .previewDisplayName(deviceName)
+                .environmentObject(ModelData())
         }
     }
 }
